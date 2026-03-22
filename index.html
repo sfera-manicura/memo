@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Перманентный макияж | Сфера Маникюра</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg-color: #fdf5f6;
+      --text-color: #4a4a4a;
+      --accent-color: #d896a3;
+      --card-bg: #ffffff;
+      --nav-bg: rgba(255, 255, 255, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-top: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Статичная шапка с логотипом */
+    header {
+      width: 100%;
+      padding: 10px 15px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      max-height: 55px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-fallback {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      color: var(--accent-color);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .service-name {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+
+    /* Навигация в формате ОСТРОВА */
+    .nav-island {
+      position: sticky;
+      top: 15px;
+      z-index: 1000;
+      margin: 0 auto 30px auto;
+      background-color: var(--nav-bg);
+      border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(216, 150, 163, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      width: fit-content;
+      max-width: calc(100% - 30px);
+      padding: 6px;
+      display: flex;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      width: 100%;
+      justify-content: flex-start;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 10px 16px;
+      border-radius: 30px;
+      background-color: transparent;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-links a.active {
+      background-color: var(--accent-color);
+      color: #fff;
+    }
+
+    @media (hover: hover) {
+      .nav-links a:hover {
+        background-color: var(--accent-color);
+        color: #fff;
+        opacity: 0.9;
+      }
+    }
+
+    /* Основной контент */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 15px 20px;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 35px;
+      padding-top: 10px;
+    }
+
+    .page-title h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      color: var(--accent-color);
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+
+    .page-title p {
+      font-size: 15px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    section {
+      margin-bottom: 50px;
+      padding-top: 10px;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      margin-bottom: 25px;
+      text-align: center;
+      color: var(--text-color);
+      line-height: 1.2;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .time-block {
+      background: var(--card-bg);
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(216, 150, 163, 0.08);
+      border-left: 4px solid var(--accent-color);
+    }
+
+    .time-block h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+    }
+
+    .time-block ul,
+    .care-card ul {
+      list-style-type: none;
+    }
+
+    .time-block ul li,
+    .care-card ul li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: var(--text-color);
+    }
+
+    .time-block ul li::before,
+    .care-card ul li::before {
+      content: '•';
+      color: var(--accent-color);
+      font-size: 18px;
+      position: absolute;
+      left: 0;
+      top: -2px;
+    }
+
+    .care-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .care-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(216, 150, 163, 0.08);
+    }
+
+    .care-card h3 {
+      font-size: 17px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #fdf5f6;
+      padding-bottom: 8px;
+      color: var(--accent-color);
+    }
+
+    .care-card p {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .alert-text {
+      color: #d896a3;
+      font-weight: 600;
+      text-align: center;
+      display: block;
+      margin-top: 15px;
+    }
+
+    .intro-text p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    .intro-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 30px 15px 25px;
+      margin-top: 30px;
+      background-color: white;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -4px 15px rgba(216, 150, 163, 0.05);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background-color: var(--bg-color);
+      color: var(--accent-color);
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 22px;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    @media (hover: hover) {
+      .social-links a:hover {
+        background-color: var(--accent-color);
+        color: #fff;
+        transform: translateY(-3px);
+      }
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+    }
+
+    @media (min-width: 600px) {
+      body { padding-top: 30px; }
+      .page-title h1 { font-size: 42px; }
+      h2 { font-size: 30px; }
+      .care-grid { grid-template-columns: 1fr 1fr; }
+      .care-card, .time-block { padding: 25px; }
+      .time-block h3, .care-card h3 { font-size: 16px; }
+      .time-block ul li, .care-card p { font-size: 15px; }
+      .intro-text p { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="main-header">
+  <div class="header-container">
+    <div class="logo-wrapper">
+      <a href="#" class="logo">
+        <img src="logo-accent.png" alt="Сфера Маникюра" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <span class="logo-fallback" style="display: none;">СФЕРА МАНИКЮРА</span>
+      </a>
+      <span class="service-name">Памятка клиента</span>
+    </div>
+  </div>
+</header>
+
+<div class="nav-island" id="nav-island">
+  <nav class="nav-links" id="nav-container">
+    <a href="#description" class="active">Описание</a>
+    <a href="#preparation">Подготовка</a>
+    <a href="#care">Уход</a>
+    <a href="#healing">Заживление</a>
+    <a href="#contraindications">Противопоказания</a>
+  </nav>
+</div>
+
+<main>
+  <div class="page-title">
+    <h1>Перманентный макияж</h1>
+  </div>
+
+  <section id="description">
+    <h2>О процедуре</h2>
+    <div class="care-card intro-text">
+      <p><strong>Перманентный макияж</strong> (далее ПМ) — это косметическая процедура, при которой красящее вещество аккуратно вводится в верхний слой кожи с помощью специального аппарата. Это позволяет подчеркнуть естественную красоту, скорректировать форму и создать эффект безупречного макияжа.</p>
+      <p>В процессе «ношения» пигмент постепенно отторгается организмом. В зависимости от особенностей вашей иммунной системы, типа кожи и возраста, результат сохраняется от нескольких месяцев до нескольких лет. Для поддержания идеального вида требуются периодические процедуры обновления («рефреш») с интервалом от полугода до трех лет.</p>
+      <p class="alert-text">Для того чтобы пигмент прижился максимально равномерно, а заживление прошло быстро и без осложнений, крайне важно строго соблюдать правила подготовки и ухода!</p>
+    </div>
+  </section>
+
+  <section id="preparation">
+    <h2>Подготовка к процедуре</h2>
+
+    <div class="timeline">
+      <div class="time-block">
+        <h3>За месяц</h3>
+        <ul>
+          <li>Исключить контурную/инъекционную косметологию в зоне воздействия.</li>
+        </ul>
+      </div>
+
+      <div class="time-block">
+        <h3>За 2 недели</h3>
+        <ul>
+          <li>Длительное нахождение на солнце / солярий (зона лица).</li>
+          <li>Химические пилинги в зоне воздействия.</li>
+          <li>Разжижающие кровь препараты (аспирин, спиртосодержащие препараты и пр.), антибиотики, кортикостероиды, ретиноиды.</li>
+        </ul>
+      </div>
+
+      <div class="time-block">
+        <h3>За неделю (для бровей)</h3>
+        <ul>
+          <li>Не щипать, не окрашивать и не делать долговременную укладку.</li>
+        </ul>
+      </div>
+
+      <div class="time-block">
+        <h3>За 4 дня</h3>
+        <ul>
+          <li>Исключить алкогольные напитки в любом количестве (также нельзя употреблять в течение 2 дней после процедуры).</li>
+        </ul>
+      </div>
+
+      <div class="time-block">
+        <h3>В день процедуры</h3>
+        <ul>
+          <li>Натуральный кофе, энергетические напитки и напитки, содержащие кофеин.</li>
+          <li>Перед процедурой необходимо тщательно снять макияж, а при процедуре на веках — снять линзы.</li>
+        </ul>
+      </div>
+
+      <div class="time-block">
+        <h3>За 2 часа</h3>
+        <ul>
+          <li>Исключить курение.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="care">
+    <h2>Правила ухода</h2>
+    <div class="care-grid">
+      <div class="care-card">
+        <h3>Общие правила</h3>
+        <ul>
+          <li>Спустя 2 часа после процедуры начните наносить мазь БЕПАНТЕН (детская).</li>
+          <li>Общее время такого ухода составляет строго 2 недели.</li>
+          <li>В первый день <strong>запрещено</strong> мочить зону процедуры проточной водой. Со второго дня при умывании не трите зону процедуры.</li>
+          <li>Нельзя сдирать корку преждевременно! Первичная корка должна сойти самостоятельно через 3-14 дней.</li>
+          <li>Не париться в бане, не купаться в водоемах и в бассейне.</li>
+          <li>Не загорать в период заживления и после в течение 1-3 месяцев. Спустя 1 месяц обязательно наносить защитные крема от солнца на зону процедуры.</li>
+        </ul>
+      </div>
+
+      <div class="care-card">
+        <h3>Брови</h3>
+        <ul>
+          <li>Наносить мазь БЕПАНТЕН 3 раза в день тонким слоем.</li>
+          <li>Не спать на боку в период заживления, чтобы избежать повреждения корки.</li>
+          <li>При ПМ век рекомендуется использовать успокаивающие и противовоспалительные капли для глаз (по рекомендации врача).</li>
+        </ul>
+      </div>
+
+      <div class="care-card" style="grid-column: 1 / -1;">
+        <h3>Губы</h3>
+        <ul>
+          <li>Наносить мазь БЕПАНТЕН 6 раз в день средним слоем.</li>
+          <li>Первые 2 часа после процедуры острое и горячее запрещено.</li>
+          <li>Рекомендуется профилактическое применение противовирусных препаратов (таких как Валтрекс, Валвир, Валацикловир) строго по инструкции и рекомендации врача.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="healing">
+    <h2>Процесс заживления</h2>
+    <div class="care-card">
+      <ul>
+        <li>Цвет ПМ сразу после проведения процедуры выглядит на <strong>40%-60% ярче</strong> ожидаемого результата.</li>
+        <li>Примерно 5 дней зона будет яркой, затем начнется шелушение. <strong>После выпадения корок цвет станет контрастно светлым!</strong>.</li>
+        <li>Спустя 3-4 недели со дня процедуры цвет постепенно восстановится, и вы увидите окончательный результат.</li>
+        <li>При жирной, пористой или толстой коже пигмент укрепляется хуже и со временем может расплываться. Коррекция может требоваться чаще (каждые 3-6 месяцев).</li>
+      </ul>
+      <span class="alert-text">Процедура ПМ делается в 2 (иногда в 3) этапа и считается незавершенной без коррекции! Коррекция проводится через месяц-полтора.</span>
+    </div>
+  </section>
+
+  <section id="contraindications">
+    <h2>Противопоказания</h2>
+
+    <div class="care-grid">
+      <div class="care-card">
+        <h3>Абсолютные (Категоричные)</h3>
+        <ul>
+          <li>Простуда (COVID, ОРВИ), воспалительные процессы в организме.</li>
+          <li>Заболевания крови, анемия, гемофилия.</li>
+          <li>Аутоиммунные нарушения.</li>
+          <li>Сахарный диабет (инсулинозависимая форма).</li>
+          <li>Беременность.</li>
+          <li>Рецидивирующий герпес, псориаз.</li>
+          <li>Конъюнктивит (в период обострения).</li>
+          <li>Астма, повышенный аллергический фон.</li>
+          <li>Эпилепсия, заболевания нервной системы.</li>
+          <li>Онкология (только по разрешению врача).</li>
+          <li>Родинки, бородавки, папилломы в зоне воздействия.</li>
+          <li>ВИЧ, СПИД, Гепатит.</li>
+          <li>Брекеты (при процедуре ПМ губ).</li>
+        </ul>
+      </div>
+
+      <div class="care-card">
+        <h3>Относительные (Временные)</h3>
+        <ul>
+          <li>Заболевания эндокринной системы (щитовидка).</li>
+          <li>Заболевания желудочно-кишечного тракта (гастрит, язва).</li>
+          <li>Менструальный период, лактация.</li>
+          <li>Кожные заболевания: обострение угревой сыпи, повышенная чувствительность, склонность к образованию келоидных рубцов.</li>
+          <li>Сердечно-сосудистая система: гипертония, гипотония, пороки сердца.</li>
+          <li>Блефаропластика (ПМ возможен не ранее, чем через 2 месяца).</li>
+          <li>Жирная, чувствительная, пористая кожа.</li>
+          <li>Плохое самочувствие, сниженный иммунитет.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="social-links">
+    <a href="https://vk.com/sferamanicura" target="_blank" aria-label="ВКонтакте">
+      <i class="fa-brands fa-vk"></i>
+    </a>
+    <a href="https://t.me/+727sgCts_cs0NGUy" target="_blank" aria-label="Telegram">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+    <a href="https://instagram.com/sfera_manicura" target="_blank" aria-label="Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+  </div>
+  <p class="footer-text">© Сфера Маникюра. Ждем вас снова!</p>
+</footer>
+
+<script>
+  const navIsland = document.getElementById("nav-island");
+  const navContainer = document.getElementById("nav-container");
+  const navLinks = document.querySelectorAll(".nav-links a");
+  const sections = document.querySelectorAll("section");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+
+      if (targetSection) {
+        // Учитываем высоту острова и его отступ (top: 15px) + небольшой запас
+        const islandOffset = navIsland.offsetHeight + 15 + 20;
+        const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - islandOffset;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+
+  window.addEventListener("scroll", () => {
+    let currentId = "";
+    const islandOffset = navIsland.offsetHeight + 15 + 40;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= sectionTop - islandOffset) {
+        currentId = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove("active");
+
+      if (link.getAttribute("href") === `#${currentId}`) {
+        link.classList.add("active");
+
+        const linkRect = link.getBoundingClientRect();
+        const containerRect = navContainer.getBoundingClientRect();
+
+        if (linkRect.left < containerRect.left || linkRect.right > containerRect.right) {
+          const scrollPos = link.offsetLeft - (containerRect.width / 2) + (link.offsetWidth / 2);
+          navContainer.scrollTo({
+            left: scrollPos,
+            behavior: "smooth"
+          });
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
